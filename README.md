@@ -8,9 +8,9 @@ Please keep all the folder names as it is mentioned. e.g. annotation, images etc
 Install the Tensorflow Object Detection API dependencies from the following link https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md.
 ## Directories Before Training:
 ###### config directory : 
-Configuration file of the model you are about to use needs to be copied inside this directory.
+Copy the .config file of the model you are about to use in this directory.
 ###### data directory : 
-Data directory contain two *.py* files. *xml_to_csv.py* converts the annotations to csv file named as *train.csv*. *generate_tfrecord.py* file convert csv files to tf record file named as *train.record*. Same needs to be done for test/val data.
+You need to copy you data images and annotations to this directory. Data directory contain two *.py* files. *xml_to_csv.py* converts the annotations to csv file named as *train.csv*. *generate_tfrecord.py* file convert csv files to tf record file named as *train.record*. Same needs to be done for test/val data.
 ###### inputs directory : 
 inputs directory must have three things before starting the training i.e. *label_map.pbtxt* (labels of the classes). *train.record* and *val.record* files.
 ###### Softlink object_detection directory from models directory:
@@ -25,7 +25,7 @@ it is an executable file that uses train.py to train the model and take configur
 ###### run_eval : 
 it is an executable file that uses eval.py to evaluate the model from recent checkpoint. The recent checkpoint is loaded from train directory in it. How the evaluation will be performed are set at the end of the configuration file. It saves the output in a directory name eval.
 ###### run_exp_tflite_graph : 
-it is an executable file that uses export_tftlite_ssd_graph.py script and trained checkpoints from the train directory (You have to specify which checkpoint). It outputs frozen model tflite_graph.pb that can be converted to tflite and tflite_graph.pbtxt in the *train* directory.
+it is an executable file that uses export_tftlite_ssd_graph.py script and trained checkpoints from the train directory (You have to specify which checkpoint). It outputs frozen model tflite_graph.pb that can be converted to tflite and tflite_graph.pbtxt in the *tflite* directory.
 ###### run_convert_tflite : 
 it is an executable file that takes tflite_graph.pb as an input and outputs a quantized 8-bit tflite format file i.e. model.tflite which is ready for inference.
 ## Things to look for before training:
@@ -54,3 +54,5 @@ Note: if the *run_train*, *run_eval* or *run_export* is not running through thos
 After you run the executable *./run_train* successfully. A directory by the name of train will be created in you main directory that will contain all you saved checkpoints.
 ###### eval : 
 After training, you can run the executable *./run_eval* which will create a directory by the name of eval and it will have the evaluted images from the *test/val*.
+###### tflite : 
+After training, when you run the executable *./run_exp_tflite_graph*. It will create a directory by the name of tflite and output *tflite_graph.pb and *tflite_graph.pbtxt* in the directory. After running the executable *./run_convert_tflite* it will output a *model.tflite* in this directory.
