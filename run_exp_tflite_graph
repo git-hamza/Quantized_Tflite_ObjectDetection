@@ -1,0 +1,9 @@
+#!/bin/bash
+mkdir -p train
+
+python3 object_detection/export_tflite_ssd_graph.py \
+    --trained_checkpoint_prefix=train/model.ckpt-206 \
+    --pipeline_config_path=config/pipeline_quant.config \
+    --output_directory=train \
+    --add_postprocessing_op=true
+

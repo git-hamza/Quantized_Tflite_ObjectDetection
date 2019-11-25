@@ -1,0 +1,15 @@
+#!/bin/bash
+#export LD_LIBRARY_PATH=/usr/local/cuda-8.0_cudnn-6.0/lib64
+#export PYTHONPATH=../tensorflow/models/research/slim:../tensorflow/models/research
+
+tflite_convert \
+--graph_def_file=train/tflite_graph.pb \
+--output_file=train/model.tflite \
+--output_format=TFLITE \
+--input_arrays=normalized_input_image_tensor \
+--input_shapes=1,300,300,3 \
+--inference_type=QUANTIZED_UINT8 \
+--mean_values=128 \
+--std_dev_values=127 \
+--output_arrays="TFLite_Detection_PostProcess,TFLite_Detection_PostProcess:1,TFLite_Detection_PostProcess:2,TFLite_Detection_PostProcess:3" \
+--allow_custom_ops
